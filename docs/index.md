@@ -66,12 +66,34 @@ d1 silence
 p "tambor" silence
 ```
 
-- Bulleted
-- List
+### Para detener todo
 
-1. Numbered
-2. List
+```
+hush
+```
 
-**Bold** and _Italic_ and `Code` text
+### --Podemos tener uno o más "streams o lineas" corriendo al tiempo así:
 
-[Link](url) and ![Image](src)
+```
+d1 $ sound "sn*3 bd cp"
+
+d2 $ sound "~ ~ h*2"
+
+d3 $ sound "~ sn*4"  --la virgulilla crea un silencio.
+
+d4 $ sound "~ cp"
+
+d5 $ sound "newnotes"
+```
+
+### Se puede hacer que un stream suene solo:
+
+```
+solo 2
+```
+
+-- y desilenciar
+
+```
+unsolo 2
+```
