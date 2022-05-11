@@ -1,6 +1,6 @@
 # **Microtaller Live Coding: Introducción a Tidal Cycles**
 
-![logo TopLap Bogotá](assets/images/toplap-bogota-square.png)
+![logo TopLap Bogotá](assets/images/toplap-bogota-logo.png)
 
 ///////// Bogotá, Colombia<br>
 ///////// Cinemateca de Bogotá<br>
@@ -96,4 +96,14 @@ solo 2
 
 ```
 unsolo 2
+```
+
+### Podemos elegir un sample en específico del folder:
+```
+d1 $ sound "sn:4 sn:8 sn:10 sn:2"
+```
+
+### Todos los samples en un patrón son tocados en un ciclo. Mira cómo se distribuyen:
+```
+d1 $ sound "bd sn hh:3 cp:2*2 bass:4"
 ```
