@@ -17,10 +17,13 @@
 
 ## Generalidades
 
-### presentación del taller
+### presentación del taller "Introducción a Tidal Cycles"
 [Link a la presentación](https://bit.ly/3L2hPcf).
 
-### comentarios en tidalcycles
+### presentación del taller "Hydra"
+[Link a la presentación](https://bit.ly/3yzaK0b).
+
+### comentarios en Tidalcycles
 
 ```
 -- esto es un comentario
@@ -34,7 +37,7 @@
 ### Evalúa las líneas de código
 - (Shift+Enter or Ctrl+Enter)
 
-## Básico
+## Parte Básica de TidalCycles
 
 ### Ciclos
 Tidal Cycles no usa BPM (beats por minuto) sino una medida específica llamada CPS: ciclos por segundo. Para Tidal, el tiempo es cíclico y no lineal. Significa que cuando termina un ciclo, seguirá uno nuevo. El tiempo se cuenta en decrementos cada vez más pequeños de ciclos por segundo (por ejemplo, 1/3 de un ciclo).
@@ -64,16 +67,41 @@ d1 $ s "bd hh hh"
 
 d2 $ s "hh:2 ~ hh:3 cp"
 ```
+### Patrones
 
-### Forma básica de crear un sonido
+Haces música con Tidal creando patrones. Los patrones siempre se declaran con un nombre específico, d1 ... d9, p "tambor", p 123123, seguido del contenido del patrón. Estos patrones son conexiones para el sintetizador SuperDirt que puede usar para reproducir muestras de audio, sintetizadores, etc. El siguiente ejemplo utiliza cuatro patrones diferentes, separados por una línea en blanco:
+
+```
+-- un bombo
+d1 $ s "bd ~ bd ~"
+
+-- patrón de HiHat
+d2 $s "[~hh]*2"
+
+-- números
+d3 $ s "numbers: 1"
+
+-- aplausos
+d4 $ s "cp cp cp"
+```
+
+### Sintaxis
+### Forma básica de crear un sonido (patrones clásicos)
 
 ```
 d1 $ sound "seawolf"
 ```
 
-### Otra forma de crear un sonido
+### Otra forma de crear un sonido (patrones por nombre)
+
 ```
 p "tambor"  $ sound "bassdm:23"
+```
+
+### Otra forma de crear un sonido (patrones por número)
+
+```
+p 112233  $ sound "latibro"
 ```
 
 ### Varios samples en una misma linea
@@ -163,4 +191,15 @@ Representar ciclos por segundo usando fracciones tiene la ventaja de ser más le
 
 ```
 setcps(126/60/4)
+```
+
+## Parte Media de TidalCycles
+
+### Podemos anidar un patrón adentro de un paso del ciclo así:
+```
+d1 $ sound "[numbers:1, ~ numbers:2, numbers:5, [numbers:6,~ ~ ~ diphone*2] numbers:4]" --Los paréntesis cuadrados agrupan.
+
+d1 $ sound " ~ ~ electro1:3"
+
+d2 $ sound " ~ electro1:2*4" #gain 1.3
 ```
