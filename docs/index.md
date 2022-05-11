@@ -1,26 +1,27 @@
 # Microtaller Live Coding: Introducción a Tidal Cycles
 
-///////// Bogotá, Colombia
-///////// Cinemateca de Bogotá
-///////// Rafael Diaz | @Rafrobeat | @TopLapBogota
-///////// 2022.05.11 | 2022.05.13
-/////////Bienvenidos a TidalCycles
-/////////Lenguaje para live coding escrito por Alex Mclean @yaxu
-/////////tidalcycles.org
-/////////https://discord.com/invite/CqWhZEfNbq
-/////////https://club.tidalcycles.org
-/////////https://club.tidalcycles.org/t/weeks-1-4-index/395
-/////////toplap.org
-
+///////// Bogotá, Colombia<br>
+///////// Cinemateca de Bogotá<br>
+///////// Rafael Diaz | [@Rafrobeat](https://www.rafrobeat.com) | @TopLapBogota<br>
+///////// 2022.05.11 | 2022.05.13<br>
+///////// Bienvenidos a TidalCycles<br>
+///////// Lenguaje para live coding escrito por Alex Mclean @yaxu<br>
+///////// Redes TidalCycles<br>
+///////// [Web](https://www.tidalcycles.org)<br>
+///////// [Discord](https://discord.com/invite/CqWhZEfNbq)<br>
+///////// [Club TidalCycles](https://club.tidalcycles.org)<br>
+///////// [Tutorial 4 semanas - Yaxu](https://club.tidalcycles.org/t/weeks-1-4-index/395)<br>
+///////// [TOPLAP](https://www.toplap.org)
 
 ## Generalidades
 
 ### presentación del taller
-[Presentación](https://bit.ly/3L2hPcf).
+[Link a la presentación](https://bit.ly/3L2hPcf).
 
 ### comentarios en tidalcycles
-```markdown
----esto es un comentario
+```
+--- esto es un comentario
+```
 
 ### La biblioteca de samples de SUPERDIRT
 - Ubica tu carpeta llamada Dirt-Samples (en SuperCollider ve a File y luego selecciona Open User Support Directory)
