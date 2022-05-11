@@ -36,6 +36,35 @@
 
 ## Básico
 
+### Ciclos
+Tidal Cycles no usa BPM (beats por minuto) sino una medida específica llamada CPS: ciclos por segundo. Para Tidal, el tiempo es cíclico y no lineal. Significa que cuando termina un ciclo, seguirá uno nuevo. El tiempo se cuenta en decrementos cada vez más pequeños de ciclos por segundo (por ejemplo, 1/3 de un ciclo).
+
+![Representación gráfica de ciclos](assets/images/cycle_representation.png)
+
+### Dividiendo el ciclo
+
+¡Por ahora no le prestemos tanta  atención al código! Ingrese el siguiente patrón en su editor de texto y evalúelo:
+
+```
+d1 $ s "bd hh bd hh"
+```
+
+Acabamos de dividir un ciclo en cuatro partes iguales, una para cada uno de los sonidos que acabas de activar. Evaluemos esta otra línea:
+
+```
+d1 $ s "bd hh hh"
+```
+
+Ahora, el ciclo se está dividiendo en tres partes iguales, habrás notado que se desaceleró un poco.
+
+Puede superponer patrones que los dividirá el ciclo en diferentes subdivisiones. Significa que Tidal es una herramienta bastante buena para explorar la polirritmia y las complejidades rítmicas:
+
+```
+d1 $ s "bd hh hh"
+
+d2 $ s "hh:2 ~ hh:3 cp"
+```
+
 ### Forma básica de crear un sonido
 
 ```
@@ -79,11 +108,9 @@ d1 $ sound "sn*3 bd cp"
 
 d2 $ sound "~ ~ h*2"
 
-d3 $ sound "~ sn*4"  --la virgulilla crea un silencio.
+d3 $ sound "~ cp"
 
-d4 $ sound "~ cp"
-
-d5 $ sound "newnotes"
+d4 $ sound "newnotes"
 ```
 
 ### Se puede hacer que un stream suene solo:
@@ -98,6 +125,11 @@ solo 2
 unsolo 2
 ```
 
+### --la virgulilla crea un silencio.
+```
+d3 $ sound "~ sn*4"  
+```
+
 ### Podemos elegir un sample en específico del folder:
 ```
 d1 $ sound "sn:4 sn:8 sn:10 sn:2"
@@ -106,4 +138,29 @@ d1 $ sound "sn:4 sn:8 sn:10 sn:2"
 ### Todos los samples en un patrón son tocados en un ciclo. Mira cómo se distribuyen:
 ```
 d1 $ sound "bd sn hh:3 cp:2*2 bass:4"
+
+d1 $ sound "bd sn hh cp arpy drum"
+
+d1 $ sound "bd sn hh cp arpy drum bd arpy bass2 feel future"
+```
+
+### La velocidad se cambia con la siguiente línea
+
+```
+setcps(1)
+```
+
+### Traduciendo la velocidad a BPM (Beats Per Minute)
+
+A veces, necesitará convertir entre BPM y CPS (por ejemplo, sincronizando con otro músico o máquina). La función setcps se utiliza para cambiar el número de ciclos por segundo. El número predeterminado de ciclos por segundo es 0,5625.
+
+Estos dos valores son equivalentes:
+
+setcps 0.5625: Ciclos por segundo, como decimal.
+setcps (135/60/4): Ciclos por segundo, como fracción.
+
+Representar ciclos por segundo usando fracciones tiene la ventaja de ser más legible por humanos y más alineado con la forma en que el tempo se representa comúnmente en la música como beats por minuto (o bpm). El Techno tiene un rango de 120-140 BPM. El House tiene un rango de 115-130 BPM. Si quisiéramos poner el tempo de nuestra canción de Tidal a house, haríamos lo siguiente:
+
+```
+setcps(126/60/4)
 ```
