@@ -1,6 +1,6 @@
 # **Microtaller Live Coding: Introducción a Tidal Cycles**
 
-![logo TopLap Bogotá](assets/images/toplap-bogota-logo.png)
+![logo TopLap Bogotá](assets/images/toplap-bogota-square.png)
 
 ///////// Bogotá, Colombia<br>
 ///////// Cinemateca de Bogotá<br>
