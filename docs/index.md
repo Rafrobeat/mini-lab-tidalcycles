@@ -1,4 +1,4 @@
-## Microtaller Live Coding: Introducción a Tidal Cycles
+# Microtaller Live Coding: Introducción a Tidal Cycles
 
 ///////// Bogotá, Colombia
 ///////// Cinemateca de Bogotá
@@ -13,14 +13,36 @@
 /////////toplap.org
 
 
-# Generalidades
+## Generalidades
 
-comentarios
+### presentación del taller
+[Presentación](https://bit.ly/3L2hPcf).
+
+### comentarios en tidalcycles
 ```markdown
 ---esto es un comentario
 
+### La biblioteca de samples de SUPERDIRT
+- Ubica tu carpeta llamada Dirt-Samples (en SuperCollider ve a File y luego selecciona Open User Support Directory)
+
+- Estamos creando patrones con diferentes samples que están localizados en el folder de samples de SuperDirt. Ubica tu folder. Puedes añadir tus propios samples ahí.
+
+### Evalúa las líneas de código
+- (Shift+Enter or Ctrl+Enter)
+
+## Básico
+
+## Forma básica de crear un sonido
 ```markdown
-Syntax highlighted code block
+d1 $ sound "seawolf"
+
+### Varios samples en una misma linea
+
+```markdown
+p "percusion" $ sound "bd*4 sd:3*2"
+
+```markdown
+d3 $ sound "alphabet alphabet:1 alphabet:2 alphabet:3"
 
 # Header 1
 ## Header 2
