@@ -1,12 +1,23 @@
-## Welcome to GitHub Pages
+## Microtaller Live Coding: Introducción a Tidal Cycles
 
-You can use the [editor on GitHub](https://github.com/Rafrobeat/mini-lab-tidalcycles/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+///////// Bogotá, Colombia
+///////// Cinemateca de Bogotá
+///////// Rafael Diaz | @Rafrobeat | @TopLapBogota
+///////// 2022.05.11 | 2022.05.13
+/////////Bienvenidos a TidalCycles
+/////////Lenguaje para live coding escrito por Alex Mclean @yaxu
+/////////tidalcycles.org
+/////////https://discord.com/invite/CqWhZEfNbq
+/////////https://club.tidalcycles.org
+/////////https://club.tidalcycles.org/t/weeks-1-4-index/395
+/////////toplap.org
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+# Generalidades
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+comentarios
+```markdown
+---esto es un comentario
 
 ```markdown
 Syntax highlighted code block
