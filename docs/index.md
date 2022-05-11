@@ -1,6 +1,6 @@
 # **Microtaller Live Coding: Introducción a Tidal Cycles**
 
-![logo TopLap Bogotá](assets/images/toplap-bogota-logo.png)
+![logo TopLap Bogotá](assets/images/toplap-bogota-logo-small.png)
 
 ///////// Bogotá, Colombia<br>
 ///////// Cinemateca de Bogotá<br>
@@ -72,7 +72,7 @@ p "tambor" silence
 hush
 ```
 
-### --Podemos tener uno o más "streams o lineas" corriendo al tiempo así:
+### Podemos tener uno o más "streams o lineas" corriendo al tiempo así:
 
 ```
 d1 $ sound "sn*3 bd cp"
@@ -92,7 +92,7 @@ d5 $ sound "newnotes"
 solo 2
 ```
 
--- y desilenciar
+## -- y desilenciar
 
 ```
 unsolo 2
