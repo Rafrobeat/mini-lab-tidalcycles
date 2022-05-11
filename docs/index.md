@@ -19,14 +19,14 @@
 [Link a la presentación](https://bit.ly/3L2hPcf).
 
 ### comentarios en tidalcycles
-```
---- esto es un comentario
+
+```--- esto es un comentario
 ```
 
 ### La biblioteca de samples de SUPERDIRT
 - Ubica tu carpeta llamada Dirt-Samples (en SuperCollider ve a File y luego selecciona Open User Support Directory)
 
-- Estamos creando patrones con diferentes samples que están localizados en el folder de samples de SuperDirt. Ubica tu folder. Puedes añadir tus propios samples ahí.
+- Estamos creando patrones con diferentes samples que están localizados en el folder de samples de SuperDirt. Ubica tu folder. Puedes añadir tus propios samples en esa carpeta. Deberás agregarlos en una carpeta nueva en formato .wav y reiniciar supercollider.
 
 ### Evalúa las líneas de código
 - (Shift+Enter or Ctrl+Enter)
@@ -34,16 +34,16 @@
 ## Básico
 
 ## Forma básica de crear un sonido
-```markdown
-d1 $ sound "seawolf"
+```d1 $ sound "seawolf"
+```
 
 ### Varios samples en una misma linea
 
-```markdown
-p "percusion" $ sound "bd*4 sd:3*2"
+```p "percusion" $ sound "bd*4 sd:3*2"
+```
 
-```markdown
-d3 $ sound "alphabet alphabet:1 alphabet:2 alphabet:3"
+```d3 $ sound "alphabet alphabet:1 alphabet:2 alphabet:3"
+```
 
 # Header 1
 ## Header 2
