@@ -147,16 +147,56 @@ d4 $ sound "newnotes"
 solo 2
 ```
 
-## -- y desilenciar
+### -- y desilenciar
 
 ```
 unsolo 2
 ```
+## Comodines
 
-### --la virgulilla crea un silencio.
+### -- La virgüililla crea un silencio.
+
 ```
-d3 $ sound "~ sn*4"  
+d1 $ sound "~ sn*4"  
 ```
+
+### -- El signo ! crea una replica del sample.
+
+```
+d1 $ s "bd!3 sd"
+```
+
+Esto es equivalente a
+
+```
+d1 $ s "bd bd bd sd"
+```
+
+### -- El signo * crea una repetición del sample.
+```
+d1 $ s "bd*2 sd"
+```
+
+
+Esto es equivalente a
+
+```
+d1 $ s "[bd bd] sd"
+```
+
+
+### -- El signo / ralentiza el sample.
+```
+d1 $ s "bd/2"
+```
+
+Esto es equivalente a
+
+```
+d1 $ s (slow 2 $ "bd")
+```
+
+* Aquí vemos la aparición de la función slow.
 
 ### Podemos elegir un sample en específico del folder:
 ```
@@ -197,9 +237,11 @@ setcps(126/60/4)
 
 ### Podemos anidar un patrón adentro de un paso del ciclo así:
 ```
-d1 $ sound "[numbers:1, ~ numbers:2, numbers:5, [numbers:6,~ ~ ~ diphone*2] numbers:4]" --Los paréntesis cuadrados agrupan.
+d1 $ sound "[numbers:1, ~ numbers:2, numbers:5, [numbers:6,~ ~ ~ diphone*2] numbers:4]"
 
 d1 $ sound " ~ ~ electro1:3"
 
 d2 $ sound " ~ electro1:2*4" #gain 1.3
 ```
+
+Los paréntesis cuadrados agrupan.
