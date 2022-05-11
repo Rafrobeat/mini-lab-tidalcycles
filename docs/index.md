@@ -20,7 +20,8 @@
 
 ### comentarios en tidalcycles
 
-```-- esto es un comentario
+```
+-- esto es un comentario
 ```
 
 ### La biblioteca de samples de SUPERDIRT
@@ -34,24 +35,30 @@
 ## Básico
 
 ### Forma básica de crear un sonido
-```d1 $ sound "seawolf"
+
+```
+d1 $ sound "seawolf"
 ```
 ### Otra forma de crear un sonido
 p "tambor"  $ sound "bassdm:23"
 
 ### Varios samples en una misma linea
 
-```p "percusion" $ sound "bd*4 sd:3*2"
+```
+p "percusion" $ sound "bd*4 sd:3*2"
 ```
 
-```d1 $ sound "alphabet alphabet:1 alphabet:2 alphabet:3"
+```
+d1 $ sound "alphabet alphabet:1 alphabet:2 alphabet:3"
 ```
 
 ### Para silenciar evalúa
-```d1 silence
+```
+d1 silence
 ```
 
-```p "tambor" silence
+```
+p "tambor" silence
 ```
 
 - Bulleted
