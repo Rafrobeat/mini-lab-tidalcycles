@@ -302,6 +302,8 @@ p "miStack" $ stack [
 ```
 
 ## Efectos (Funciones de efectos)
+![filter](assets/images/ddj-manual-filter.jpg)
+
 - Podemos aplicar efectos para cambiar el sonido, o el cómo suena, por ejemplo los filtros formantes tipo vocales:
 ```
 d1 $ sound "can:1" # vowel "a"
@@ -341,6 +343,13 @@ d1 $ sound "jvbass*4"
     # gain "1.3"
 ```
 
+### DJF (filter dj)
+```
+d1 $ sound "jvbass*4"
+    # gain "1.3"
+    # djf "0.2"
+```
+
 ### LPF (low pass fitler)
 ```
 d1 $ sound "jvbass*4"
@@ -354,8 +363,6 @@ d1 $ sound "jvbass*4"
    # hpf "2000"
    # gain 1.3
  ```
-
-
 
 ## Parte avanzada de TidalCycles
 ### Bjorklund (y Euclides)
@@ -395,5 +402,19 @@ Estos código usan el "Algoritmo Bjorklund", el cual no fue hecho para la músic
 | (13,24) |	Otro ritmo circular de los Pigmeos Aka de Sangha.
 
 ### Funciones
+Hasta ahora hemos trabajado casi exclusivamente en construir secuencias, aunque se han incluido poliritmos, y manipulaciones algorítmicas simples que estan incluídas dentro de la sintáxis de Tidal. Es momento de ascender en el nivel de abstracción y ver que encontramos en el camino.
+
+Primero miremos de cerca las funciones que hemos usado hasta ahora.
+
+## **d1** es una función que toma un patrón como entrada para luego enviarla a dirt. Por defecto hay 16 de estos definidos, de d1 a d16, lo que permite empezar y parar patrones múltiples al tiempo.
+
+## Signo de dolar $
+Se preguntarán que hace el signo de dolar $. Si no se lo a preguntado, puede saltarse esta sección.
+
+El signo de dolar no hace casi nada; simplemete toma todo lo que esté a su derecha y se lo envía a la función a su izquierda.
+
+## cat y slowcat | Pegar patrones
+
+
 
 ### Synthes
