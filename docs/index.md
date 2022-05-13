@@ -177,13 +177,11 @@ d1 $ s "bd bd bd sd"
 d1 $ s "bd*2 sd"
 ```
 
-
 Esto es equivalente a
 
 ```
 d1 $ s "[bd bd] sd"
 ```
-
 
 ### -- El signo / ralentiza el sample.
 ```
@@ -196,7 +194,17 @@ Esto es equivalente a
 d1 $ s (slow 2 $ "bd")
 ```
 
-* Aquí vemos la aparición de la función slow.
+Podemos multiplicar y dividir grupos también:
+```
+d1 $ sound "[alphabet:2 numbers:1]/4 cp"
+```
+
+* Aquí vemos la aparición de la función slow. Más adelante la usaremos.
+
+### -- Casi olvido el más importante (para mi): El signo ? randomiza el toque del sample.
+```
+d1 $ sound "sn*2 bd cp? hh"
+```
 
 ### Podemos elegir un sample en específico del folder:
 ```
@@ -244,4 +252,65 @@ d1 $ sound " ~ ~ electro1:3"
 d2 $ sound " ~ electro1:2*4" #gain 1.3
 ```
 
-Los paréntesis cuadrados agrupan.
+- Los paréntesis cuadrados o corchetes, agrupan.
+- El signo de coma ","  se usa para crear poliritmos.
+
+```
+d1 $ sound "[bd, amencutup] bd"
+
+d2 $ sound "[hh hh, arpy arpy:1 arpy:2]"
+```
+Así podemos comenzar a crear complejidad desde la simplicidad:
+```
+d1 $ sound "arpy arpy:1 arpy:3 arpy:4"
+
+d2 $ sound "[arpy arpy:1, arpy:3*4 arpy:8 arpy:7*3 arpy:4, arpy:5 arpy:6]"
+```
+
+Y usar tantas capas como queramos:
+```
+d1 $ sound "[hh sn, sn cp sn, arpy:4 arpy:, ~ cp]"
+```
+
+### Mezclando comas y paréntesis cuadrados:
+```
+d1 $ sound "[hh, [sn*2] cp/2 notes*5, arpy:6 arpy:2, arpy [arpy:4 [arpy:1 arpy:2] arpy:3 arpy], odx, ~ cp]"
+```
+
+## STACK (pilas)
+Con stack podemos agrupar varios patrones en un sólo stream:
+
+```
+d1 $ sound "newnotes*2 newnotes:5*3"
+
+d2 $ sound "jvbass"
+
+d3 $ sound "808*2"
+```
+- El stack con con los patrones anteriores
+
+```
+p "miStack" $ stack [
+    sound "newnotes*2 newnotes:5*3 ! newnotes:4"
+    # speed "2",
+    sometimes (striate 5) $ sound "jvbass*4",
+    sometimes brak $ sound "808*2",
+     sound "metal*2",
+     sound "bd"]
+    # gain "1"
+    # vowel "o"
+```
+
+## Efectos (Funciones de efectos)
+- Podemos usar diferentes efectos sonoros para nuestros samples:
+
+### Gain
+- gain es una función para manejar el volumen
+
+```
+d1 $ sound "tok*3"
+    # gain "1.3"
+```
+
+
+## Parte avanzada de TidalCycles
