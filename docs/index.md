@@ -281,6 +281,7 @@ d1 $ sound "[hh, [sn*2] cp/2 notes*5, arpy:6 arpy:2, arpy [arpy:4 [arpy:1 arpy:2
 ![filter](assets/images/ddj-manual-filter.jpg)
 
 - Podemos aplicar efectos para cambiar el sonido, o el cómo suena, por ejemplo los filtros formantes tipo vocales:
+
 ```
 d1 $ sound "can:1" # vowel "a"
 ```
@@ -306,7 +307,6 @@ d1 $ sound "can:1" # vowel "a"
 | lpf / cutoff    | filtro pasabajos. Le damos la frecuencia de corte en Hertz. Entre 0 y 10000 apróx.
 | hpf / hcutoff   | filtro pasaaltos. Le damos la frecuencia de corte en Hertz. Entre 0 y 1000 apróx.
 | djf             | filtro dj. Le damos la frecuencia de corte entre 0 y 1.
-| orbit           | filtro dj. Le damos la frecuencia de corte entre 0 y 1.
 
 - [Lista completa de filtros](http://tidalcycles.org/docs/patternlib/tutorials/audio_effects/)
 
@@ -314,12 +314,14 @@ d1 $ sound "can:1" # vowel "a"
 - Algunos ejemplos
 
 ### Gain
+
 ```
 d1 $ sound "jvbass*4"
     # gain "1.3"
 ```
 
 ### DJF (filter dj)
+
 ```
 d1 $ sound "jvbass*4"
     # gain "1.3"
@@ -327,6 +329,7 @@ d1 $ sound "jvbass*4"
 ```
 
 ### LPF (low pass fitler)
+
 ```
 d1 $ sound "jvbass*4"
     # gain "1.3"
@@ -334,6 +337,7 @@ d1 $ sound "jvbass*4"
 ```
 
 ### HPF (high pass filter)
+
 ```
 d1 $ sound "jvbass*4"
    # hpf "2000"
@@ -343,11 +347,13 @@ d1 $ sound "jvbass*4"
 ## Parte avanzada de TidalCycles
 ### Bjorklund (y Euclides)
 - Si pone dos números en paréntesis luego de un elemento en un patrón, entonces Tidal distribuirá el primer número de sonidos equitativamente a lo largo del segundo número de pasos:
+
 ```
 d1 $ sound "jvbass:2(3,8)"
 ```
 
 - Pero, como no es posible distribuir tres elementos a lo largo de 8 pasos discretos, el algoritmo hace lo mejor que puede. El resultado es un campaneo, pruebe este:
+
 ```
 d1 $ sound "can(5,8)"
 ```
@@ -382,7 +388,8 @@ Hasta ahora hemos trabajado casi exclusivamente en construir secuencias, aunque 
 
 Primero miremos de cerca las funciones que hemos usado hasta ahora.
 
-### **d1** es una función que toma un patrón como entrada para luego enviarla a dirt. Por defecto hay 16 de estos definidos, de d1 a d16, lo que permite empezar y parar patrones múltiples al tiempo.
+### d1
+**d1** es una función que toma un patrón como entrada para luego enviarla a dirt. Por defecto hay 16 de estos definidos, de d1 a d16, lo que permite empezar y parar patrones múltiples al tiempo.
 
 ### Signo de dolar $
 Se preguntarán que hace el signo de dolar $. Si no se lo a preguntado, puede saltarse esta sección.
@@ -399,6 +406,7 @@ d2 $ sound "jvbass"
 
 d3 $ sound "808*2"
 ```
+
 - El stack con con los patrones anteriores
 
 ```
@@ -441,7 +449,6 @@ d1 $ slowcat [
     # gain "1"
     # vowel "o"
 ```
-
 
 ### slowy density | Desacelerar o acelerar un patrón
 Desacelerar un patrón de la forma simple hace que cambie sustancialmente su caracter en formas sorpresivas. Use slowpara desacelerar un patrón.
@@ -494,5 +501,288 @@ setcps(125/60/4)
 d1 $ rev $ slow 4 $ chop 16 $ sound "breaks125"
 ```
 
+## Meta-funciones
+Por meta-funciones nos referimos a funciones que toman otras funciones como entrada. Por ejemplo,¿qué tal si no quiero reversar un patrón cada vez, si no cada cierta vez?
 
-### Synthes
+### every
+
+```
+d1 $ every 2 rev $ sound "bd can sn can:4"
+```
+
+En vez de aplicar rev directamente a sound "bd can sn can:4", el código anterior envía rev a every, diciéndole que lo haga cada 2 repeticiones. Intente cambiar 2 por 4 para descubrir una sensación muy distinta.
+
+```
+d1 $ every 4 (density 2) $ sound "bd can sn can:4"
+```
+
+Esto funciona con otras funciones que reciben patrones. Así se hace un patrón el doble de denso cada cuatro repeticiones.
+
+Intentemos con ejemplos mas largos:
+
+```
+d1 $ every 2 (density 1.5) $ every 3 (rev) $ fast 2 $ chop 16 $ sound "breaks125" # end 0.5
+```
+
+### sometimes
+La función sometimes se parece un poco a every excepto que a veces aplica la función y a veces no, y lo hace de manera impredecible.
+
+```
+d1 $ sometimes (density 2) $ sound "bd can*2 sn can:4"
+```
+
+Hay otras funciones similares a estas como often y almostAlways que aplican la función mas a menudo, rarely y almostNever, que la aplican menos veces.
+
+-- Siempre es posible amontonar funciones, por ejemplo:
+
+```
+d1
+  $ sometimes (density 2)
+  $ every 4 (rev)
+  $ sound "bd can sn can:4"
+```
+
+En general, Tidal se pone mas interesante cuando toma partes simples y se combinan de esta manera.
+
+### jux
+La meta-función jux se aplica a un solo canal del estéreo. Por ejemplo, el siguiente patrón suena en reversa por uno de los altavoces y normal por el otro.
+
+```
+d1 $ jux rev $ sound "bd sn*2 can [~ arpy]"
+```
+
+En este el patrón es ejecutado 25% mas rápido en uno de los altavoces:
+
+```
+d1 $ jux (density 1.25) $ sound "arpy:2 arpy:4 arpy:1 [~ arpy]"
+```
+
+### weave
+Weave es una función extraña, ya que toma diferentes parámetros de síntesis y los superpone desfasados uno de otro, al principio del patrón base. Esta bien, esto necesita un ejemplo:
+
+```
+d1 $ weave 16 (sound "arpy arpy:7 arpy:3")
+  [vowel "a e i", vowel "o i", vowel "a i e o", speed "2 4 ~ 2 1"]
+```
+
+### iter
+Dado un número n, la función iter rota un patrón 1/n pasos a la izquierda para cada ciclo. Un ejemplo hace maravillas:
+
+```
+d1 $ iter 4 $ sound "arpy:1 arpy:2 arpy:3 arpy:4"
+```
+
+## sintetizadores
+SuperDirt se instala junto con una extensa lista de sintetizadores y efectos de audio predeterminados. Tenga en cuenta que también puede ampliar esta lista agregando sus propios sintetizadores y efectos de audio al motor de audio. Por ejemplo, echa un vistazo a [Mutable Instruments](https://club.tidalcycles.org/t/mutable-instruments-ugens/2730) o   [SynthDefs for Tidal](https://club.tidalcycles.org/t/synthdefs-for-tidal/1092) hilos en el foro de Tidal Club.
+
+### midinote
+
+```
+d1 $ midinote "60 62*2" # s "supersaw"
+```
+
+El código anterior reproduce las notas 60 y 62 de la escala MIDI, utilizando el parámetro midinote.
+
+Alternativamente, puede especificar notas por nombre, usando n:
+
+```
+d1 $ n "c5 d5*2" # s "supersaw"
+```
+
+Para los medios tonos, se agregan los sufijos f o s (planos o agudos) a la nota en cuestión.
+
+```
+d1 $ n "<[a5,cs5,e5,g5]*3 [d5,fs5,g5,c5]>"
+    # s "supersquare"
+    # gain "0.7"
+```
+
+Arriba hay una progresión de dos acordes A5 D5. Observe cs5 y fs5 como C#5 y F#5, respectivamente.
+
+```
+d2 $ every 4 (rev) $ n "<[g5 df5 e5 a5] [gf5 d5 c5 g5]*3>"
+    # s "supersaw"
+    ```
+
+### Instrumentos básicos
+Los valores predeterminados están entre paréntesis. En todos los sintetizadores, sustain(predeterminado 1) afecta la escala de tiempo general de la envolvente. Los parámetros pan y freq también se pueden configurar en todos los sintetizadores. El valor predeterminado para freq suele ser 440, en sintetizadores donde no lo es, freq y su valor predeterminado para ese sintetizador se menciona en su lista de parámetros.
+
+### Síntesis aditiva
+La síntesis aditiva busca la construcción de sonidos combinando (sumando, es decir, ‘por adición’) elementos más simples que el sonido original.
+
+-- Supergong
+Un ejemplo de síntesis aditiva, construyendo un sonido similar al de un gong a partir de una suma de armónicos de onda sinusoidal. Observe cómo la escala de tiempo y la amplitud de la envolvente se pueden escalar en función de la frecuencia armónica.
+
+voice(0): proporciona algo así como una perilla de tono
+decay(1): ajusta cómo decaen los armónicos
+accelerate(0): para pitch Glade
+
+```
+d1 $ n (slow 2 $ fmap (*7) $ run 8)
+  # s "supergong"
+  # decay "[1 0.2]/4"
+  # voice "[0.5 0]/8"
+```
+
+### Síntesis Substractiva
+Es un método de síntesis donde una señal es generada por un oscilador y después filtrada. Esta señal puede tener diferentes tipos de forma, por lo tanto varía en su contenido armónico. Anteriormente se lograba gracias a los circuitos electrónicos de los sintetizadores analógicos.
+
+### Sintetizadores tidalcyles
+
+ejemplo:
+-- Cambiemos los synthes para saber como suenan.
+
+```
+setcps(90/60/4)
+
+p "pad" $ fast 2
+        $ midinote "[69 72 76] [~ ~]" # s "supertron" # gain 0.7
+        # pan (fast 2 $ range 0 1 sine)
+```
+
+## Synthes para síntesis aditiva
+-- supergong
+
+## Synthes para síntesis Substractiva
+-- supersquare
+-- supersaw
+-- superpwm
+-- superchip
+-- superhoover
+-- superzow
+-- supertron
+
+## Synthes modelos físicos  
+-- superpiano
+-- supermandolin
+-- superfork
+-- superhammond
+-- supervibe
+
+## Synthes síntesis FM
+-- superfm
+
+## Synthes síntesis DRUM
+-- super808
+-- superkick
+-- superhat
+-- supersnare
+-- superclap
+-- soskick
+-- soshats
+-- sostoms
+-- sossnare
+
+### Ejemplos para probar
+Muchos de los sintetizadores anteriores aceptan parámetros de Tidal adicionales o interpretan los parámetros habituales de una manera ligeramente diferente. Para obtener la documentación completa, consulte default-synths.scd, pero aquí hay algunos ejemplos para probar:
+
+```
+d1 $ jux (# accelerate "-0.1")
+    $ s "supermandolin*8"
+    # midinote "[80!6 78]/8"
+    # sustain "1 0.25 2 1"
+```
+
+```
+d1 $ midinote (slow 2
+    $ (run 8) * 7 + 50)
+    # s "supergong"
+    # decay "[1 0.2]/4"
+    # voice "[0.5 0]/8"
+    # sustain (slow 16 $ range 5 0.5 $ saw1)
+```
+
+```
+d1 $ sound "superhat:0*8"
+    # sustain "0.125!6 1.2"
+    # accelerate "[0.5 -0.5]/4"
+```
+
+```
+d1 $ s "super808 supersnare"
+    # n (irand 5)
+    # voice "0.2"
+    # decay "[2 0.5]/4"
+    # accelerate "-0.1"
+    # sustain "0.5"
+    # speed "[0.5 2]/4"
+```
+
+```
+d1 $ n (slow 8 "[[c5 e5 g5 c6]*4 [b4 e5 g5 b5]*4]")
+    # s "superpiano"
+    # velocity "[1.20 0.9 0.8 1]"
+```
+
+```
+d1 $ n (slow 8 $ "[[c4,e4,g4,c5]*4 [e4,g4,b5,e5]*4]" + "<12 7>")
+    # s "superpiano"
+    # velocity (slow 8 $ range 0.8 1.1 sine)
+    # sustain "8"
+```
+
+```    
+d1 $ n "[c2 e3 g4 c5 c4 c3]/3"
+    # s "[superpwm supersaw supersquare]/24"
+    # sustain "0.5"
+    # voice "0.9"
+    # semitone "7.9"
+    # resonance "0.3"
+    # lfo "3"
+    # pitch1 "0.5"
+    # speed "0.25 1"
+```
+
+```
+d1 $ every 16 (density 24 . (|+| midinote "24") . (# sustain "0.3") . (# attack "0.05"))
+   $ s "supercomparator/4"
+   # midinote ((irand 24) + 24)
+   # sustain "8"
+   # attack "0.5"
+   # hold "4"
+   # release "4"
+   # voice "0.5"
+   # resonance "0.9"
+   # lfo "1"
+   # speed "30"
+   # pitch1 "4"
+```   
+
+```   
+d1 $ n "[c2 e3 g4 c5 c4 c3]*4/3"
+    # s "superchip"
+    # sustain "0.1"
+    # pitch2 "[1.2 1.5 2 3]"
+    # pitch3 "[1.44 2.25 4 9]"
+    # voice (slow 4 "0 0.25 0.5 0.75")
+    # slide "[0 0.1]/8"
+    # speed "-4"
+```
+
+```
+d2 $ every 4 (echo (negate 3/32))
+    $ n "c5*4"
+    # s "supernoise"
+    # accelerate "-2"
+    # speed "1"
+    # sustain "0.1 ! ! 1"
+    # voice "0.0"
+```
+
+```
+d1 $ s "supernoise/8"
+    # midinote ((irand 10) + 30)
+    # sustain "8"
+    # accelerate "0.5"
+    # voice "0.5"
+    # pitch1 "0.15"
+    # slide "-0.5"
+    # resonance "0.7"
+    # attack "1"
+    # release "20"
+    # room "0.9"
+    # size "0.9"
+    # orbit "1"
+```
+
+RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT || RΔFR🐯BΞΔT
