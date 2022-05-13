@@ -18,7 +18,7 @@
 ## Generalidades
 
 ### presentación del taller "Introducción a Tidal Cycles"
-[Link a la presentación](https://bit.ly/3L2hPcf).
+[Link a la presentación](https://bit.ly/39jj4qa).
 
 ### presentación del taller "Hydra"
 [Link a la presentación](https://bit.ly/3yzaK0b).
@@ -201,7 +201,7 @@ d1 $ sound "[alphabet:2 numbers:1]/4 cp"
 
 * Aquí vemos la aparición de la función slow. Más adelante la usaremos.
 
-### -- Casi olvido el más importante (para mi): El signo ? randomiza el toque del sample.
+### -- Casi olvido el más importante (para mi): Si quieres que algo pase 'a veces', puedes poner un interrogante ( ? ) .
 ```
 d1 $ sound "sn*2 bd cp? hh"
 ```
@@ -358,5 +358,42 @@ d1 $ sound "jvbass*4"
 
 
 ## Parte avanzada de TidalCycles
+### Bjorklund (y Euclides)
+- Si pone dos números en paréntesis luego de un elemento en un patrón, entonces Tidal distribuirá el primer número de sonidos equitativamente a lo largo del segundo número de pasos:
+```
+d1 $ sound "jvbass:2(3,8)"
+```
+
+- Pero, como no es posible distribuir tres elementos a lo largo de 8 pasos discretos, el algoritmo hace lo mejor que puede. El resultado es un campaneo, pruebe este:
+```
+d1 $ sound "can(5,8)"
+```
+
+Estos código usan el "Algoritmo Bjorklund", el cual no fue hecho para la música sino en aplicaciones para física nuclear, lo que es bastante emocionante. Mas emocionante aún es que este algoritmo es muy similar estructuralmente a uno de los primeros algoritmos conocidos, escrito en el Libro de los elementos de Euclides en el 300 AC. Puede leer mas sobre esto en el paper The Euclidean Algorithm Generates Traditional Musical Rhythms por Toussaint. Ejemplos de este paper se incluyen acá, aunque algunos requieren rotación sobre un pulso particular, lea el paper para ver los detalles y las referencias.
+
+Patrón	Descripción
+(2,5)	Ritmo persa del siglo trece llamado Khafit-e-ramal.
+(3,4)	El patrón básico de la Cumbia Colombiana, al igual que del Calypso de Trinidad.
+(3,5)	Si se inicia en el segundo pulso, es otro ritmo persa al igual que un ritmo popular de baile de Rumania.
+(3,7)	Ritmo Ruchenitza usado en la música popular bailable de Bulgaria.
+(3,8)	Patrón de tresillo cubano.
+(4,7)	Otro ritmo Ruchenitza usado en la música popular bailable de Bulgaria.
+(4,9)	Aksak, ritmo Turco.
+(4,11)	Patrón usado por Frank Zappa en su tema titulado Outside Now.
+(5,6)	Produce el patrón York-Samai, un ritmo árabe popular, si se empieza en el segundo beat.
+(5,7)	Patrón Nawakhat, otro popular ritmo árabe.
+(5,8)	Patrón de cinquillo cubano.
+(5,9)	Un ritmo popular en Arabia llamado Agsag-Samai.
+(5,11)	Patrón métrico usado por Moussorgsky en Cuadros de una exposición.
+(5,12)	Patrón de palmas sudafricano llamado Venda, de canciones infantiles.
+(5,16)	Patrón circular del Bossa-Nova Brasilero.
+(7,8)	Ritmo que se toca sobre el Bendir.
+(7,12)	Patrón del occidente africano.
+(7,16)	Patrón circular de la Samba Brasilera.
+(9,16)	Ritmo circular usado en la República de África central.
+(11,24)	Ritmo circular de los Pigmeos Aka en África central.
+(13,24)	Otro ritmo circular de los Pigmeos Aka de Sangha.
+
+### Funciones
 
 ### Synthes
