@@ -602,7 +602,7 @@ Arriba hay una progresión de dos acordes A5 D5. Observe cs5 y fs5 como C#5 y F#
 ```
 d2 $ every 4 (rev) $ n "<[g5 df5 e5 a5] [gf5 d5 c5 g5]*3>"
     # s "supersaw"
-    ```
+```
 
 ### Instrumentos básicos
 Los valores predeterminados están entre paréntesis. En todos los sintetizadores, sustain(predeterminado 1) afecta la escala de tiempo general de la envolvente. Los parámetros pan y freq también se pueden configurar en todos los sintetizadores. El valor predeterminado para freq suele ser 440, en sintetizadores donde no lo es, freq y su valor predeterminado para ese sintetizador se menciona en su lista de parámetros.
