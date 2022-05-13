@@ -302,15 +302,61 @@ p "miStack" $ stack [
 ```
 
 ## Efectos (Funciones de efectos)
-- Podemos usar diferentes efectos sonoros para nuestros samples:
+- Podemos aplicar efectos para cambiar el sonido, o el cómo suena, por ejemplo los filtros formantes tipo vocales:
+```
+d1 $ sound "can:1" # vowel "a"
+```
+
+- Estos son algunos de los efectos más usados.
+
+|    Nombre 	    |                       Descripción
+| accelerate	    | patrón de números que acelera o frena los samples mientras se ejecutan.
+| begin	          | patrón de números de 0 a 1, Salta el principio de cada sample, por ejemplo, 0.25 corta el primer cuarto de cada sample.
+| coarse          | 	seudo-remuestreo, un patrón de números para bajar el muestreo, por ejemplo, 1 es original, 2 la mitad, 3 la tercera parte.
+| crush	          | bit crushing, patrón de números de 1 a 16, con 1 reduciendo el bit depth al máximo y 16 dejándolo igual.
+| cutoff	        | patrón de números de 0 a 1, establece la frecuencia de corte de un LPF.
+| delay	          | patrón de números de 0 a 1, establece en nivel del delay.
+| delayfeedback	  | patrón de números de 0 a 1, establece la cantidad de feedback del delay. También se usa como delayfb
+| delaytime       | patrón de números de 0 a 1, establece el largo del delay. También se usa como delayt
+| end	            | igual a begin, pero aplica al final de cada sample acortándolo.
+| gain            |	patrón de números para especificar el volumen, valores inferiores a 1 lo hacen mas suave, valores superiores a 1 lo hacen mas fuerte.
+| pan	            | patrón de números de 0 a 1, panea de izquierda a derecha (si hay estéreo).
+| resonance / lpq | 	patrón de números de 0 a 1, establece la resonancia de un LPF.
+| shape           | distorsión de onda, 0 no distorsiona, 1 para máxima distorsión.
+| speed	          | patrón de números de 0 a 1, cambian la velocidad del sample, también es una forma económica de cambiar la altura del sample.
+| vowel	          | filtro para hacer que los samples suenen como vocales, el patrón puede tener cualquier vocal, use (~) para que no tenga efecto.
+| lpf / cutoff    | filtro pasabajos. Le damos la frecuencia de corte en Hertz. Entre 0 y 10000 apróx.
+| hpf / hcutoff   | filtro pasaaltos. Le damos la frecuencia de corte en Hertz. Entre 0 y 1000 apróx.
+| djf             | filtro dj. Le damos la frecuencia de corte entre 0 y 1.
+| orbit           | filtro dj. Le damos la frecuencia de corte entre 0 y 1.
+
+- [Lista completa de filtros](http://tidalcycles.org/docs/patternlib/tutorials/audio_effects/)
+
+
+- Algunos ejemplos
 
 ### Gain
-- gain es una función para manejar el volumen
-
 ```
-d1 $ sound "tok*3"
+d1 $ sound "jvbass*4"
     # gain "1.3"
 ```
 
+### LPF (low pass fitler)
+```
+d1 $ sound "jvbass*4"
+    # gain "1.3"
+    # lpf "200"
+```
+
+### HPF (high pass filter)
+```
+d1 $ sound "jvbass*4"
+   # hpf "2000"
+   # gain 1.3
+ ```
+
+
 
 ## Parte avanzada de TidalCycles
+
+### Synthes
