@@ -277,30 +277,6 @@ d1 $ sound "[hh sn, sn cp sn, arpy:4 arpy:, ~ cp]"
 d1 $ sound "[hh, [sn*2] cp/2 notes*5, arpy:6 arpy:2, arpy [arpy:4 [arpy:1 arpy:2] arpy:3 arpy], odx, ~ cp]"
 ```
 
-## STACK (pilas)
-Con stack podemos agrupar varios patrones en un sólo stream:
-
-```
-d1 $ sound "newnotes*2 newnotes:5*3"
-
-d2 $ sound "jvbass"
-
-d3 $ sound "808*2"
-```
-- El stack con con los patrones anteriores
-
-```
-p "miStack" $ stack [
-    sound "newnotes*2 newnotes:5*3 ! newnotes:4"
-    # speed "2",
-    sometimes (striate 5) $ sound "jvbass*4",
-    sometimes brak $ sound "808*2",
-     sound "metal*2",
-     sound "bd"]
-    # gain "1"
-    # vowel "o"
-```
-
 ## Efectos (Funciones de efectos)
 ![filter](assets/images/ddj-manual-filter.jpg)
 
@@ -401,20 +377,122 @@ Estos código usan el "Algoritmo Bjorklund", el cual no fue hecho para la músic
 | (11,24) | Ritmo circular de los Pigmeos Aka en África central.
 | (13,24) |	Otro ritmo circular de los Pigmeos Aka de Sangha.
 
-### Funciones
+## Funciones
 Hasta ahora hemos trabajado casi exclusivamente en construir secuencias, aunque se han incluido poliritmos, y manipulaciones algorítmicas simples que estan incluídas dentro de la sintáxis de Tidal. Es momento de ascender en el nivel de abstracción y ver que encontramos en el camino.
 
 Primero miremos de cerca las funciones que hemos usado hasta ahora.
 
-## **d1** es una función que toma un patrón como entrada para luego enviarla a dirt. Por defecto hay 16 de estos definidos, de d1 a d16, lo que permite empezar y parar patrones múltiples al tiempo.
+### **d1** es una función que toma un patrón como entrada para luego enviarla a dirt. Por defecto hay 16 de estos definidos, de d1 a d16, lo que permite empezar y parar patrones múltiples al tiempo.
 
-## Signo de dolar $
+### Signo de dolar $
 Se preguntarán que hace el signo de dolar $. Si no se lo a preguntado, puede saltarse esta sección.
 
 El signo de dolar no hace casi nada; simplemete toma todo lo que esté a su derecha y se lo envía a la función a su izquierda.
 
-## cat y slowcat | Pegar patrones
+### Stack (pilas)
+Con stack podemos agrupar varios patrones en un sólo stream:
 
+```
+d1 $ sound "newnotes*2 newnotes:5*3"
+
+d2 $ sound "jvbass"
+
+d3 $ sound "808*2"
+```
+- El stack con con los patrones anteriores
+
+```
+d1 $ stack [
+    sound "newnotes*2 newnotes:5*3 ! newnotes:4"
+    # speed "2",
+    sometimes (striate 5) $ sound "jvbass*4",
+    sometimes brak $ sound "808*2",
+     sound "metal*2",
+     sound "bd"]
+    # gain "1"
+    # vowel "o"
+```
+
+### cat y slowcat | Pegar patrones
+Si reemplaza stack con cat, los patrones serán unidos uno después del otro en vez de uno sobre el otro:
+
+```
+d1 $ cat [
+    sound "newnotes*2 newnotes:5*3 ! newnotes:4"
+    # speed "2",
+    sometimes (striate 5) $ sound "jvbass*4",
+    sometimes brak $ sound "808*2",
+     sound "metal*2",
+     sound "bd"]
+    # gain "1"
+    # vowel "o"
+```
+
+La función **cat** acomoda todos los patrones en el espacio de uno, pero **slowcat** mantendrá la velocidad de reproducción:
+
+```
+d1 $ slowcat [
+    sound "newnotes*2 newnotes:5*3 ! newnotes:4"
+    # speed "2",
+    sometimes (striate 5) $ sound "jvbass*4",
+    sometimes brak $ sound "808*2",
+     sound "metal*2",
+     sound "bd"]
+    # gain "1"
+    # vowel "o"
+```
+
+
+### slowy density | Desacelerar o acelerar un patrón
+Desacelerar un patrón de la forma simple hace que cambie sustancialmente su caracter en formas sorpresivas. Use slowpara desacelerar un patrón.
+
+```
+d1 $ slow 2 $ sound "bd ~ sn bd ~ [~ bd]/2 [sn [~ bd]/2] ~"
+```
+
+Y density para acelerarlo de nuevo.
+
+```
+d1 $ density 2 $ sound "bd ~ sn bd ~ [~ bd]/2 [sn [~ bd]/2] ~"
+```
+
+Si juegas un poco con los números, descubrirás que density 0.5 de hecho es igual a slow 2.
+
+### rev | Reversa
+La función rev, reversa cada ciclo en un patrón:
+
+```
+d1 $ rev $ sound "bd ~ sn bd ~ [~ bd]/2 [sn [~ bd]/2] ~"
+```
+
+### chop
+La función chop divide cada sample en un número dado de bits:
+
+```
+d1 $ chop 16 $ sound "bd ~ sn bd ~ [~ bd]/2 [sn [~ bd]/2] ~"
+```
+
+Esto hace que suene realmente granulado. Suena mas extraño si se reversa después de picarlo:
+
+```
+d1 $ rev $ chop 16 $ sound "bd ~ sn bd ~ [~ bd]/2 [sn [~ bd]/2] ~"
+```
+
+Por el uso de $ este código está trabajando de derecha a izquierda; primero hace la secuencia, luego pasa esta secuencia a chop 16, luego la pasa a rev, y finalmente al sintetizador Dirt usando d1. Si se cambia el orden entre chop y rev suena diferente:
+
+```
+d1 $ chop 16 $ rev $ sound "bd ~ sn bd ~ [~ bd]/2 [sn [~ bd]/2] ~"
+```
+
+Esto ocurre porque estamos reversando el patrón primero, se pican los samples después, entonces los bits no son reversados.
+
+chop funciona muy bien con samples largos:
+
+```
+setcps(125/60/4)
+
+d1 $ rev $ slow 4 $ chop 16 $ sound "breaks125"
+```
 
 
 ### Synthes
