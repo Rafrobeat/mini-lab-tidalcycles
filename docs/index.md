@@ -641,37 +641,37 @@ p "pad" $ fast 2
 ```
 
 ## Synthes para síntesis aditiva
--- supergong
+- supergong
 
 ## Synthes para síntesis Substractiva
--- supersquare
--- supersaw
--- superpwm
--- superchip
--- superhoover
--- superzow
--- supertron
+- supersquare
+- supersaw
+- superpwm
+- superchip
+- superhoover
+- superzow
+- supertron
 
 ## Synthes modelos físicos  
--- superpiano
--- supermandolin
--- superfork
--- superhammond
--- supervibe
+- superpiano
+- supermandolin
+- superfork
+- superhammond
+- supervibe
 
 ## Synthes síntesis FM
--- superfm
+- superfm
 
 ## Synthes síntesis DRUM
--- super808
--- superkick
--- superhat
--- supersnare
--- superclap
--- soskick
--- soshats
--- sostoms
--- sossnare
+- super808
+- superkick
+- superhat
+- supersnare
+- superclap
+- soskick
+- soshats
+- sostoms
+- sossnare
 
 ### Ejemplos para probar
 Muchos de los sintetizadores anteriores aceptan parámetros de Tidal adicionales o interpretan los parámetros habituales de una manera ligeramente diferente. Para obtener la documentación completa, consulte default-synths.scd, pero aquí hay algunos ejemplos para probar:
